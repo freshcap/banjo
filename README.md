@@ -12,5 +12,5 @@ I'd love to get some input from anyone else who's willing to try it out. For any
     <li>Unit tests</li>
     <li>Optional setting to emit a copy of the data instead of the data itself</li>
     <li>Any ways to make the method calls less verbose.</li>
-    <li>Examples for react and vue.</li>
+    <li>Demos for react and vue.</li>
 </ul>
