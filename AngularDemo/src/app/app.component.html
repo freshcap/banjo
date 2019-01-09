@@ -1,0 +1,81 @@
+<h1>Banjo ~ Angular Demo</h1>
+<div>The first time getting an item, it makes an API call taking a looong 2 seconds.</div>
+<div>Once it's cached, a get just retrieves the gizmo from the cache.</div>
+<div>Both sections here use an observable to respond to any cache updates.</div>
+<mat-divider class='bottom10'></mat-divider>
+
+<div fxLayout='row' fxLayoutGap='20px' fxLayout.xs='column'>
+
+    <!-- All Gizmos -->
+    <div class='section top10'>
+        <div fxLayoutGap='10px' class='bottom10 nowrap'>
+            <button mat-raised-button color='primary' (click)='getAllGizmos()'>Get All Gizmos</button>
+            <button mat-raised-button color='accent' (click)='clearDisplay()'>Clear Display</button>
+            <button mat-raised-button color='accent' (click)='clearCache()'>Clear Cache</button>
+        </div>
+        <mat-card>
+            <mat-spinner *ngIf='gettingAllGizmos' diameter='30'></mat-spinner>
+            <div *ngFor='let gizmo of gizmos' class='bottom10'>
+                <ng-content *ngTemplateOutlet='gizmoDetail; context: { gizmo: gizmo }'></ng-content>
+                <mat-divider></mat-divider>
+            </div>
+        </mat-card>
+    </div>
+
+    <!-- One Gizmo -->
+    <div class='section'>
+        <div fxLayout='row' fxLayoutAlign='start center' fxLayoutGap='10px' class='nowrap'>
+            <button mat-raised-button color='primary' (click)='getGizmoById(gizmoId.value)' [disabled]='editing'>Get Gizmo</button>
+            <button mat-raised-button color='accent' (click)='edit()' [disabled]='!selectedGizmo || editing'>Edit</button>
+            <mat-form-field class='number-width'>
+                <input matInput #gizmoId type='number' placeholder='Gizmo ID' value='0'>
+            </mat-form-field>
+        </div>
+
+        <mat-card>
+            <mat-spinner *ngIf='gettingOneGizmo' diameter='30'></mat-spinner>
+            <div *ngIf='notFound' fxLayoutAlign='start center'>
+                <mat-icon color='warn'>error</mat-icon>
+                Gizmo ID not found: {{gizmoId.value}}
+            </div>
+
+            <div *ngIf='selectedGizmo && !editing'>
+                <ng-content *ngTemplateOutlet='gizmoDetail; context: { gizmo: selectedGizmo }'></ng-content>
+            </div>
+
+            <!-- Edit -->
+            <div *ngIf='editing' [formGroup]='gizmoForm' fxLayout='column'>
+                <mat-form-field>
+                    <input matInput formControlName='name' placeholder='Name' required>
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea matInput matTextareaAutosize='true' formControlName='description' placeholder='Decription' required></textarea>
+                </mat-form-field>
+                <mat-spinner *ngIf='saving' diameter='30' class='bottom10'></mat-spinner>
+                <div fxLayoutGap='10px'>
+                    <button mat-raised-button color='primary' (click)='save()' [disabled]='gizmoForm.invalid'>Save</button>
+                    <button mat-raised-button color='warn' (click)='cancel()'>Cancel</button>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+
+</div>
+
+<!-- Gizmo Display template -->
+<ng-template #gizmoDetail let-gizmo='gizmo'>
+    <table>
+        <tr>
+            <td class='label'>ID:</td>
+            <td>{{gizmo.id}}</td>
+        </tr>
+        <tr>
+            <td class='label'>Name:</td>
+            <td>{{gizmo.name}}</td>
+        </tr>
+        <tr>
+            <td class='label'>Description:</td>
+            <td>{{gizmo.description}}</td>
+        </tr>
+    </table>
+</ng-template>
