@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, pipe, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Banjo } from '../../../banjo';
+import { Banjo } from './banjo';
 import { Gizmo } from './data.models';
 import { FakeApi } from './fake.api';
 
