@@ -1,7 +1,7 @@
 # banjo
 Web app client data caching utility. In your services, check whether data has been cached before making an expensive API call.
 
-<a href='https://freshcap.github.io/banjo/' target='_blank'>Angular Demo</a>
+<a href='https://freshcap.github.io/banjo/'>Angular Demo</a>
 
 Banjo is a simple TypeScript generic data caching mechanism. This is a low-level utility and can be implemented in any variety of ways. Banjo provides storage for data types with an observable stream if you want to use RxJs.
 
