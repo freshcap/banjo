@@ -15,7 +15,7 @@ import {
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { Banjo } from '../../../banjo';
+import { Banjo } from './banjo';
 import { FakeApi } from './fake.api';
 import { GizmoService } from './gizmo.service';
 
